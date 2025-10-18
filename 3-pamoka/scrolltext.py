@@ -41,3 +41,25 @@ def printif(expr, msg=""):
 
 def input_list(prompt="", separator=","):
     return input(prompt).split(separator)
+
+def random_text(length=10):
+    import random
+    text=""
+    for i in range(length):
+        text+=list_of_all_letters[int(random.uniform(0, len(list_of_all_letters)))]
+    return text
+
+def random_color():
+    import random
+    hex_chars="0123456789ABCDEF"
+    color=""
+    for i in range(2):
+        color+=hex_chars[int(random.uniform(0, len(hex_chars)))]
+    return color
+
+def random_num_list(length=5, min_val=0, max_val=100):
+    import random
+    num_list=[]
+    for i in range(length):
+        num_list.append(int(random.uniform(min_val, max_val)))
+    return num_list
