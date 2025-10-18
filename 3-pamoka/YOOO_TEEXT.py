@@ -5,7 +5,9 @@ import os
 import scrolltext as st
 
 text=input("Iveskite teksta: ")
-color=str(input("Iveskite teksto ir fono spalva naudodami 1 raides HEX(pvz 0F yra juodas fonas ir baltos raides): "))
+color=str(input("Iveskite teksto ir fono spalva naudodami 1 raides HEX(pvz 0F yra juodas fonas ir baltos raides). Iveskite 00 jeigu norite naudoti atsitiktines spalvas: "))
+if color=="00":
+    color=st.random_color()
 speed=float(input("Iveskite spaudimo greiti (mazesnis skaicius yra greiciau, pvz 0.001): "))
 start=time.time()
 st.scroll(text, color, speed)
