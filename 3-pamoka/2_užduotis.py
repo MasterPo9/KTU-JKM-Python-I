@@ -16,13 +16,24 @@ Kokius pažymius gavo Petriukas? 5 5 4 5 5               Petriukas gaus vieną s
 
 # Rašyk savo kodą žemiau 👇
 
-pazymiai = input("Kokius pažymius gavo Petriukas? ")
-pazymiai_list = pazymiai.split()
-pazymiai_int = [int(x) for x in pazymiai_list]
-vidurkis = sum(pazymiai_int) / len(pazymiai_int)
-if vidurkis > 9:
-    print("Petriukas gaus tris saldainius")
-elif vidurkis >= 7 and vidurkis <= 9:
-    print("Petriukas gaus du saldainius")
-else:
-    print("Petriukas gaus vieną saldainį")
+var=1
+if var==1:
+    pazymiai = input("Kokius pažymius gavo Petriukas? ")
+    pazymiai_list = pazymiai.split()
+    pazymiai_int = [int(x) for x in pazymiai_list]
+    vidurkis = sum(pazymiai_int) / len(pazymiai_int)
+    if vidurkis > 9:
+        print("Petriukas gaus tris saldainius")
+    elif vidurkis >= 7 and vidurkis <= 9:
+        print("Petriukas gaus du saldainius")
+    else:
+        print("Petriukas gaus vieną saldainį")
+if var==2: #other solution
+    a, b, c, d, e=int(input("Iveskite pazymius: ").split())
+    vidurkis=(a+b+c+d+e)/5
+    if vidurkis>9:
+        print("Petriukas gaus tris saldainius")
+    elif 7<=vidurkis<=9:
+        print("Petriukas gaus du saldainius")
+    else:
+        print("Petriukas gaus viena saldaini")
