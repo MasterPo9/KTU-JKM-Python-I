@@ -1,7 +1,8 @@
 """
 A simple scrolling text animation in the console.
 Imports: time, os
-Function: scroll(text, color='0F', speed=0.001)"""
+Function: scroll(text, color='0F', speed=0.001)
+may contain other useful functions"""
 list_of_all_letters =[chr(i) for i in range(32, 33)] + [chr(46)] + [chr(i) for i in range(65, 91)] + [chr(i) for i in range(97, 123)]
 def scroll(text, color='0F', speed=0.001):
     import time
@@ -23,3 +24,20 @@ def scroll(text, color='0F', speed=0.001):
         if text==x:
                 break
     print(x)
+def tetr(x, n=2, r=2):
+    # basicly tetration function, Tetration is repeated exponentiation.
+    # n -- the power, r -- the number of times to repeat exponentiation
+    if n == 0:
+        return 1
+    elif n == 1:
+        return x
+    else:
+        for i in range(r):
+            x **= n
+
+def printif(expr, msg=""):
+    if expr:
+        print(msg)
+
+def input_list(prompt="", separator=","):
+    return input(prompt).split(separator)
