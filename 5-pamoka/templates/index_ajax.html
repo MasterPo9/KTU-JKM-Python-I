@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <body>
+    <h1>Buttons -> Server (AJAX)</h1>
+
+    <button onclick="send('btn1')">+1</button>
+    <button onclick="send('btn2')">-1</button>
+
+    <p id="output"></p>
+
+    <script>
+      async function send(name) {
+        const res = await fetch('/action-json', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({button: name})
+        });
+        const j = await res.json();
+        document.getElementById('output').innerText = j.result;
+      }
+    </script>
+  </body>
+</html>
