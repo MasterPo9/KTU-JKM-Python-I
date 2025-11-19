@@ -1,0 +1,3 @@
+M_questions = ["553234Maistas" ,"Kaip dažnai valgote mėsą?", "Ar maisto produktus perkate ūkininkų turgelyje, ekologiško maisto parduotuvėje?","Ar kompostuojate vaisių ir daržovių atliekas?","Ar pakuojate perkamus maisto produktus?","Kiek maisto išmetate per dieną?"]
+N_questions = ["3333Namai","Kur gyvenate?","Kiek kambarių jūsų namuose tenka žmogui?","Ar jūsų šeima turi antrą namą, pavyzdžiui sodybą, kuriame beveik nebūna?"]
+E_questions = ["3425Energija",""] #awh this is so boring to code
