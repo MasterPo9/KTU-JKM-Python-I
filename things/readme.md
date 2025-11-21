@@ -1,4 +1,3 @@
 a project automating a *quiz* from my biology workbook
-![dont ask how i got this, definetely didnt involve diging through the websites html code](https://eduka.lt/teaching-tool-page-image/SDRkb3ArY1FLNENISlFCd1FDdUxuTi91bldGR2p1eEZkS0MyQy9JeWVWbit2bklMSUZCZG5pYlI5K1lSVmttWk43b2tBcWh5a21KRHpzRUZlamFQYTRqYlVHMVVNeERyTndtZEFLTzN0N1JOSWplamQzS0lzWlJtSytyTktidmdhSE5TMzRvM3NUNy9KNnpEZi9rUlZhcDRCZ2pMZ2o4T2ljSkN4SVV6Qk9VUzRHSWZYa3BhVjFudUo1bHVoVzgzck9KV0dlRkJjMmZ0b2huQjNTUk9UZz09)
-![dont ask how i got this, definetely didnt involve diging through the websites html code](https://eduka.lt/teaching-tool-page-image/SDRkb3ArY1FLNENISlFCd1FDdUxuTi91bldGR2p1eEZkS0MyQy9JeWVWbit2bklMSUZCZG5pYlI5K1lSVmttWk43b2tBcWh5a21KRHpzRUZlamFQYTRqYlVHMVVNeERyTndtZEFLTzN0N1FRLytyS1ZsL3QrYmVHdUpkR2dNbzNtdGkrUjk1UjZWSHdVSGZ2N1NZdFI2Z2dVVVZ5TnhLTE1NbUdiMWVjWEhrL3JqV29rL0JHUDhjOVhlMUdJaTRjYkVpdE8zVHlsVlIyTEtUNjE4OFpsZz09)
+![dont ask how i got this, definetely didnt involve diging through the websites html code](./3.png)
 this definetely wont break their TOS
