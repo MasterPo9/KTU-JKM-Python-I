@@ -53,5 +53,18 @@ def uzd4():
     else:
         laimejo="Loterija laimeta"
     print(f"Is viso buvo galima surinkti tasku: {max}\nTomas is viso surinko {surinko} tasku\nJo tasku vidurkis: {vid} Tasko\n{laimejo}")
-uzd4()
+
+def uzd5():
+    prk=st.cinput("Iveskite pirkiniu kainas: ", True)
+    svr=st.cinput("Iveskite pirkiniu svorius: ", True)
+    vid=sum(prk)/len(prk)
+    e=vid//100
+    ct=vid-e*100
+    ssvr=sum(svr)
+    print(f"Pirkinio vidutine kaina: {e:.0f} eurai {ct:.0f} ct.")
+    st.printif(ssvr>5000, "Petriukas negales parnesti pirkiniu.")
+    st.printif(ssvr<=5000, "Petriukas gales parnesti pirkinius.")
+
+uzd5()
+
 
