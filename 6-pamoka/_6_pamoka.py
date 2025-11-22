@@ -32,6 +32,23 @@ def uzd2():
 
 def uzd3():
     st_d=int(input("Parasykite kuria savaites diena prasidejo menuo: "))
+    intervalas=st.cinput("Iveskite dienu intervala: ")
+    pr, end=int(intervalas[0]), int(intervalas[1])
+    prd=pr//7
+    sav_d=prd*7 #taigi cia bus savaites diena tokia pati kaip ir st_d
+    skr=pr-sav_d
+    sav_d_pr=st_d+skr-1
+    if sav_d_pr>7:
+        sav_d_pr-=7
+    print(pr, end, sav_d, prd, skr)
+    for i in range(pr, end+1):
+        print(f"{i}-oji diena: {sav_d_pr}")
+        sav_d_pr+=1
+        if sav_d_pr>7:
+            sav_d_pr=1
+
+def uzd3a():
+    st_d=int(input("Parasykite kuria savaites diena prasidejo menuo: "))
     msdl=[]
     for i in range(1, 31+1):
         msdl.append(st_d)
@@ -65,6 +82,6 @@ def uzd5():
     st.printif(ssvr>5000, "Petriukas negales parnesti pirkiniu.")
     st.printif(ssvr<=5000, "Petriukas gales parnesti pirkinius.")
 
-uzd5()
+uzd3()
 
 
