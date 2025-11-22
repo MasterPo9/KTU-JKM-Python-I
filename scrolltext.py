@@ -85,3 +85,14 @@ def cinput(a="Input: ", contains_sp=False, contains_cm=False, contains_both=Fals
     if contains_both:
         it=it_paz.split(", ")  
     return it
+
+def lmax(a=[]):
+    kb=0
+    didzc=0
+    ct=1
+    for i in a:
+        kb+=float(i)
+        if float(i) >= didzc:
+            didzc=float(i)
+        ct+=1
+    return didzc
