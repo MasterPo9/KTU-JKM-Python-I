@@ -110,8 +110,7 @@ def main():
         elif i<=offsetdr and i==offsetd+1: clenght, cq, off, ct= lenghtdr, Dr_questions, offsetdr, 1
         elif i<=offsett and i==offsetdr+1: clenght, cq, off, ct= lenghtt, T_questions, offsett, 1
 
-        if ct==1:
-            print(f"\n{cq[0][1+int(cq[0][0]):]}\n")
+        print(f"\n{cq[0][1+int(cq[0][0]):]}\n")
         
         if cq[0][ct] == "0" and ans[i-1] == "":
             print(f"\n{cq[ct]}\n1 Jeigu taip, 0 jeigu ne.")
