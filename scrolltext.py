@@ -3,8 +3,10 @@ A simple scrolling text animation in the console.
 Imports: time, os
 Function: scroll(text, color='0F', speed=0.001)
 may contain other useful functions"""
+
 list_of_all_letters = [chr(i) for i in range(32, 33)] + [chr(46)] + [chr(i) for i in range(65, 91)] + [chr(i) for i in
                                                                                                        range(97, 123)]
+numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
 
 
 def scroll(text, color='0F', speed=0.001, SINGLE_LINE_MODE=False):
@@ -76,36 +78,56 @@ def random_num_list(length=5, min_val=0, max_val=100):
 
 
 def cinput(a="Input: ", INTMODE=False):
+    it = []
     it_paz = input(f"{a}")
 
-    for i in range(0, len(it_paz)):
-        if it_paz[i] == " ":
-            contains_sp = True
-        if it_paz[i] == ",":
-            contains_cm = True  # auto detect format (split by spaces, or commas)
+    digits_rlenght = []
+    digits_nl_lenght = 0
+    digits_rletter = ""
 
-    if contains_cm and contains_sp:
-        contains_both = True
-        contains_cm, contains_sp = False, False  # or if both are used, split by both
+    MODE = None
+    list_of_all_letters.remove(chr(32))
 
-    if contains_sp:
-        it = it_paz.split(" ")
+    for i in it_paz:
+        if i in numbers:
+            INTMODE = True
+            MODE = "NUM"
+            digits_nl_lenght += 1
+            digits_rletter += str(i)
+        elif i in list_of_all_letters:
+            INTMODE = False
+            MODE = "LTR"
+            if i == ".":
+                MODE = "NUM"
+                digits_nl_lenght += 1
+                digits_rletter += str(i)
+                INTMODE = True
+            digits_nl_lenght += 1
+            digits_rletter += str(i)
+        else:
+            MODE = "SEP"
+            digits_nl_lenght = 1
+            digits_rlenght.append(digits_rletter)
+            digits_rletter = ""
 
-    if contains_cm:
-        it = it_paz.split(",")
+    if digits_rletter:  # append the last buffer
+        digits_rlenght.append(digits_rletter)
 
-    if contains_both:
-        it = it_paz.split(", ")
-    if INTMODE:
+    if INTMODE:  # try converting to int first, then float
         it_int = []
-        for i in it:
-            it_int.append(int(i))
+        for i in digits_rlenght:
+            try:
+                it_int.append(int(i))
+            except:
+                it_int.append(float(i))
         return it_int
     else:
-        return it
+        return digits_rlenght
 
 
-def lmax(a=[]):
+def lmax(a=None):
+    if a is None:
+        a = []
     kb = 0
     didzc = 0
     ct = 1
