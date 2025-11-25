@@ -77,8 +77,16 @@ def random_num_list(length=5, min_val=0, max_val=100):
     return num_list
 
 
-def cinput(a="Input: ", INTMODE=False):
+def cinput(a="Input: ", Force_Number_Input=False, Float_Force_Extension=False, DEBUG=False):
+    if Float_Force_Extension and not Force_Number_Input:
+        Float_Force_Extension = False
+
+    MODE = MODE1 = MODE2 = ""
+
     it = []
+    INTMODE_PERM_FALSE = False
+    if DEBUG: print("Debug Enabled!")
+
     it_paz = input(f"{a}")
 
     digits_rlenght = []
@@ -91,29 +99,55 @@ def cinput(a="Input: ", INTMODE=False):
     for i in it_paz:
         if i in numbers:
             INTMODE = True
+            MODE2 = MODE1
+            MODE1 = MODE
             MODE = "NUM"
             digits_nl_lenght += 1
             digits_rletter += str(i)
+            if DEBUG: print(f"\r\x1b[K{digits_rletter};{MODE}←{MODE1}←{MODE2}; {digits_nl_lenght}")
         elif i in list_of_all_letters:
+            if Force_Number_Input and not Float_Force_Extension: continue
             INTMODE = False
+            MODE2 = MODE1
+            MODE1 = MODE
             MODE = "LTR"
-            if i == ".":
+            if i == "." and MODE1 == "NUM":
+                MODE2 = MODE1
+                MODE1 = MODE
                 MODE = "NUM"
                 digits_nl_lenght += 1
                 digits_rletter += str(i)
                 INTMODE = True
+                if Force_Number_Input and Float_Force_Extension: continue
+            elif (MODE1 == "SEP" or MODE2 == "SEP") and i == ".":
+                MODE = "SEP"
+                continue
+            else:
+                if Force_Number_Input and Float_Force_Extension: continue
+                INTMODE_PERM_FALSE = True
+                if DEBUG: print("Enabled Permanent INTMODE")
+            if Force_Number_Input and Float_Force_Extension: continue
             digits_nl_lenght += 1
             digits_rletter += str(i)
+            if DEBUG: print(f"\r\x1b[K{digits_rletter};{MODE}←{MODE1}←{MODE2}; {digits_nl_lenght}")
         else:
+            if MODE != "SEP":
+                digits_nl_lenght = 1
+                digits_rlenght.append(digits_rletter)
+                if DEBUG: print(
+                    f"Appended before changing of MODE(prev {MODE}←{MODE1}←{MODE2}) to SEP({digits_rletter})")
+
+            MODE2 = MODE1
+            MODE1 = MODE
             MODE = "SEP"
-            digits_nl_lenght = 1
-            digits_rlenght.append(digits_rletter)
             digits_rletter = ""
+            if DEBUG: print(f"\r\x1b[K{digits_rletter};{MODE}←{MODE1}←{MODE2}; {digits_nl_lenght}")
 
     if digits_rletter:  # append the last buffer
         digits_rlenght.append(digits_rletter)
+    if DEBUG: print(f"Gotten result: {digits_rlenght}")
 
-    if INTMODE:  # try converting to int first, then float
+    if not INTMODE_PERM_FALSE:  # try converting to int first, then float
         it_int = []
         for i in digits_rlenght:
             try:

@@ -26,7 +26,7 @@ def uzd1():
 
 
 def uzd2():
-    tmp = st.cinput("Iveskite, kiek snaigiu nukrito per pirmaja sekunde ir kiek sekundziu snigo: ")
+    tmp = st.cinput("Iveskite, kiek snaigiu nukrito per pirmaja sekunde ir kiek sekundziu snigo: ", True)
     k, n = int(tmp[0]), int(tmp[1])  # n - kiek sekundziu snigo; k - kiek snaigiu iskrito pirma sekunde
     s = 0
     for i in range(1, n + 1):
@@ -37,7 +37,7 @@ def uzd2():
 
 def uzd3():
     st_d = int(input("Parasykite kuria savaites diena prasidejo menuo: "))
-    intervalas = st.cinput("Iveskite dienu intervala: ", True)
+    intervalas = st.cinput("Iveskite dienu intervala: ", )
     pr, end = intervalas[0], intervalas[1]  # get first day and last day of interval
     prd = pr // 7  # calculate int(floor) week count
     sav_d = prd * 7  # this should then be the day, closest to pr, having the same week day as "st_d" (the entered week day)
@@ -60,7 +60,7 @@ def uzd3a():
         st_d += 1
         if st_d > 7:
             st_d = 1
-    intervalas = st.cinput("Iveskite dienu intervala: ", True)
+    intervalas = st.cinput("Iveskite dienu intervala: ", )
     pr, end = (intervalas[0]), (intervalas[1])
     for i in range(pr, end + 1):
         print(f"{i}-oji diena: {msdl[i - 1]}")
@@ -90,4 +90,4 @@ def uzd5():
     st.printif(ssvr <= 5000, "Petriukas gales parnesti pirkinius.")
 
 
-uzd3()
+uzd5()
