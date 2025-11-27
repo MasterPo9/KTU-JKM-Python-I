@@ -77,19 +77,21 @@ def random_num_list(length=5, min_val=0, max_val=100):
     return num_list
 
 
-def cinput(a="Input: ", Force_Number_Input=False, Float_Force_Extension=False, DEBUG=False):
+def cinput(a="Input: ", Force_Number_Input=False, Float_Force_Extension=False, LEGACY=False, DEBUG=False):
     if Float_Force_Extension and not Force_Number_Input:
         Float_Force_Extension = False
 
     MODE = MODE1 = MODE2 = ""
 
-    it = []
+    FLOATMODE = False
+    INTMODE = False
+
     INTMODE_PERM_FALSE = False
     if DEBUG: print("Debug Enabled!")
 
     it_paz = input(f"{a}")
 
-    digits_rlenght = []
+    digits_collected = []
     digits_nl_lenght = 0
     digits_rletter = ""
 
@@ -118,6 +120,7 @@ def cinput(a="Input: ", Force_Number_Input=False, Float_Force_Extension=False, D
                 digits_nl_lenght += 1
                 digits_rletter += str(i)
                 INTMODE = True
+                FLOATMODE = True
                 if Force_Number_Input and Float_Force_Extension: continue
             elif (MODE1 == "SEP" or MODE2 == "SEP") and i == ".":
                 MODE = "SEP"
@@ -133,30 +136,32 @@ def cinput(a="Input: ", Force_Number_Input=False, Float_Force_Extension=False, D
         else:
             if MODE != "SEP":
                 digits_nl_lenght = 1
-                digits_rlenght.append(digits_rletter)
+                digits_collected.append(digits_rletter)
                 if DEBUG: print(
                     f"Appended before changing of MODE(prev {MODE}←{MODE1}←{MODE2}) to SEP({digits_rletter})")
+
 
             MODE2 = MODE1
             MODE1 = MODE
             MODE = "SEP"
+
             digits_rletter = ""
             if DEBUG: print(f"\r\x1b[K{digits_rletter};{MODE}←{MODE1}←{MODE2}; {digits_nl_lenght}")
 
-    if digits_rletter:  # append the last buffer
-        digits_rlenght.append(digits_rletter)
-    if DEBUG: print(f"Gotten result: {digits_rlenght}")
+    if digits_rletter:
+        digits_collected.append(digits_rletter)
+    if DEBUG: print(f"Gotten result: {digits_collected}")
 
     if not INTMODE_PERM_FALSE:  # try converting to int first, then float
         it_int = []
-        for i in digits_rlenght:
-            try:
+        for i in digits_collected:
+            if INTMODE and not FLOATMODE:
                 it_int.append(int(i))
-            except:
+            elif INTMODE and FLOATMODE:
                 it_int.append(float(i))
         return it_int
     else:
-        return digits_rlenght
+        return digits_collected
 
 
 def lmax(a=None):
@@ -171,3 +176,9 @@ def lmax(a=None):
             didzc = float(i)
         ct += 1
     return didzc
+
+
+def sci_notation(x, acc):
+    exp = len(str(x)) - 1
+    base = int(str(x)[acc])
+    return f"{base}e{exp}"

@@ -1,3 +1,5 @@
+import pkg.scrolltext as st
+
 def main():
     M_questions = ["553234Maistas" ,"Kaip dažnai valgote mėsą?", "Ar maisto produktus perkate ūkininkų turgelyje, ekologiško maisto parduotuvėje?","Ar kompostuojate vaisių ir daržovių atliekas?","Ar pakuojate perkamus maisto produktus?","Kiek maisto išmetate per dieną?"]
     N_questions = ["3333Namai","Kur gyvenate?","Kiek kambarių jūsų namuose tenka žmogui?","Ar jūsų šeima turi antrą namą, pavyzdžiui sodybą, kuriame beveik nebūna?"]
@@ -87,6 +89,8 @@ def main():
 
     points=[[600, 400, 300, 200, 150], [60, 30, 0], [60, -20], [100, 30, 0], [100, 50, 25, 0], [50, 0, -50], [200, 100, 0], [400, 200, 0], [150, 100, 50, -20], [50, -50], [100, 50, 0, -50], [200, 60, 20, -50], [-100], [-20], [60, -50], [-30], [200, 100, 75, 25], [80, 60, 20, 0], [80], [-20], [-20], [200], [100, -50], [100, 75, 50, 25], [90, 60, 20, 0], [100, 30, 0], [200, 100, 40, 0], [200, 100, 50, 20], [400, 200, 0]]
 
+    cq = M_questions
+
     print(len(ans))
     usr_ans=[]
     ct=1
@@ -154,6 +158,13 @@ def main():
         sum+=int(i)
 
     print(f"\nJūs surinkote {sum} taškų")
+    zemes = sum / 300
+    print(f"Reiketu {zemes:.2f} planetu, kad butu atkurti jusu sunaudoti istekliai ir neutralizuota sukelta tarsa.")
+
+    zemes_needed_for_all_pop = zemes * 8.2 * 10 ** 9
+
+    print(
+        f"Reiketu {st.sci_notation(zemes_needed_for_all_pop, 3)} zemes dydzio planetu reiketu visai zmoniu populiacijai islaikyti")
 
 try:
     main()
