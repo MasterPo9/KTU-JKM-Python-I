@@ -77,7 +77,7 @@ def random_num_list(length=5, min_val=0, max_val=100):
     return num_list
 
 
-def cinput(a="Input: ", Force_Number_Input=False, Float_Force_Extension=False, LEGACY=False, DEBUG=False):
+def cinput(a="Input: ", Force_Number_Input=False, Float_Force_Extension=False, DEBUG=False):
     if Float_Force_Extension and not Force_Number_Input:
         Float_Force_Extension = False
 
