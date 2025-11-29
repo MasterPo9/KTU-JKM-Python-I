@@ -17,6 +17,7 @@
     <option name="TEMPLATE_FOLDERS">
       <list>
         <option value="$MODULE_DIR$/5-pamoka/templates" />
+        <option value="$MODULE_DIR$/things/templates" />
       </list>
     </option>
   </component>

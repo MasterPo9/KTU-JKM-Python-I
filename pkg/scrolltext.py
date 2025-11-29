@@ -81,6 +81,9 @@ def cinput(a="Input: ", Force_Number_Input=False, Float_Force_Extension=False, D
     if Float_Force_Extension and not Force_Number_Input:
         Float_Force_Extension = False
 
+    list_of_all_letters__type_s = list_of_all_letters
+    list_of_all_letters__type_s.remove(chr(32))
+
     MODE = MODE1 = MODE2 = ""
 
     FLOATMODE = False
@@ -96,7 +99,6 @@ def cinput(a="Input: ", Force_Number_Input=False, Float_Force_Extension=False, D
     digits_rletter = ""
 
     MODE = None
-    list_of_all_letters.remove(chr(32))
 
     for i in it_paz:
         if i in numbers:
@@ -107,7 +109,7 @@ def cinput(a="Input: ", Force_Number_Input=False, Float_Force_Extension=False, D
             digits_nl_lenght += 1
             digits_rletter += str(i)
             if DEBUG: print(f"\r\x1b[K{digits_rletter};{MODE}←{MODE1}←{MODE2}; {digits_nl_lenght}")
-        elif i in list_of_all_letters:
+        elif i in list_of_all_letters__type_s:
             if Force_Number_Input and not Float_Force_Extension: continue
             INTMODE = False
             MODE2 = MODE1
