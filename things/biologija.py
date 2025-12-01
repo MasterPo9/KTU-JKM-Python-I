@@ -1,4 +1,4 @@
-import pkg.scrolltext as st
+import m9_utils.scrolltext as st
 
 def main():
     M_questions = ["553234Maistas" ,"Kaip dažnai valgote mėsą?", "Ar maisto produktus perkate ūkininkų turgelyje, ekologiško maisto parduotuvėje?","Ar kompostuojate vaisių ir daržovių atliekas?","Ar pakuojate perkamus maisto produktus?","Kiek maisto išmetate per dieną?"]

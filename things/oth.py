@@ -1,8 +1,34 @@
 import math
 import sys
 import time
+from threading import Thread
 
-import pkg.scrolltext as st
+import gmpy2
+
+import m9_utils.scrolltext as st
+
+stopped = False
+
+
+def sometimer(x=str(), type=1):
+    global stopped
+    if type == 1:
+        nahh = time.time()
+        while not stopped:
+            print(f"\r{time.time() - nahh:.2f}s ({x})", end="")
+            time.sleep(0.01)
+    if type == 2:
+        nahh = time.time()
+        ct = 0
+        additional_dots = ""
+        while not stopped:
+            print(f"\r{x} ({time.time() - nahh:2.2f}s){additional_dots}", end="")
+            time.sleep(0.1)
+            if ct % 10:
+                additional_dots += "."
+                once = False
+            else:
+                once = True
 
 
 def sci_notation(x, acc=3):
@@ -13,7 +39,7 @@ def sci_notation(x, acc=3):
     return f"{base}e{exp}"
 
 
-def huge_int_summary(x, lead_digits=5, tail_digits=3):
+def huge_int_summary(x, lead_digits=5, tail_digits=3):  # ts wont work ig
     start3 = time.time()
     try:
         start3 = time.time()
@@ -32,7 +58,50 @@ def huge_int_summary(x, lead_digits=5, tail_digits=3):
         quit()
 
 
-sys.set_int_max_str_digits(999999)
+def WOO_LETS_MAKE_THIS_WORK(x=int(), status=False,
+                            status_type=0):  # and ofc the x is the massive number calculated down below
+    # so you know how this number itself is very big?
+    # well it isn`t that big by its int length ig..
+    # but we need to set it to str first
+
+    global stopped
+
+    eval_start = time.time()
+
+    digits = math.floor(2 ** times * math.log10(num)) + 1
+    if status and status_type == 0:
+        stopped = False
+        p = Thread(target=sometimer(f"Converting \033[1mres\033[0m({digits} digits) to gmpy2 mpz type", 2), daemon=True)
+        p.start()
+
+    gx = gmpy2.mpz(x)
+
+    if status and status_type == 0:
+        stopped = True
+        time.sleep(1)
+        stopped = False
+
+        p = Thread(target=sometimer(f"Converting \033[1mres\033[0m({digits} digits) to str", 2), daemon=True)
+        p.start()
+
+    xstr = str(gx)
+
+    if status and status_type == 0:
+        stopped = True
+        time.sleep(1)
+        stopped = False
+
+        p = Thread(target=sometimer("Formatting answer", 2), daemon=True)
+        p.start()
+
+    xsum = f"{xstr[:4]}...(x{len(xstr) - 8})...{xstr[-4:]}"
+
+    stopped = True
+
+    print(f"ANSWER: {xsum}\nTook {time.time() - eval_start:.2f}s to evaluate.")
+
+
+sys.set_int_max_str_digits(99999999)
 
 conv_l = st.cinput(
     "Input 3 numbers(1st -- the number to raise; 2nd -- the power to raise by; 3rd -- the times to raise): ", True)
@@ -69,4 +138,4 @@ for i in range(0, times):
             raise "Maximum number of errors reached."
         continue
 
-print(f"Answer: {huge_int_summary(res)}")
+WOO_LETS_MAKE_THIS_WORK(res)

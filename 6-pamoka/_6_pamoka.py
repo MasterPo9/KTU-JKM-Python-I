@@ -1,3 +1,4 @@
+import m9_utils as m9
 import scrolltext as st
 
 
@@ -34,10 +35,9 @@ def uzd2():
         k *= 2
     print(s)
 
-
 def uzd3():
     st_d = int(input("Parasykite kuria savaites diena prasidejo menuo: "))
-    intervalas = st.cinput("Iveskite dienu intervala: ", )
+    intervalas = m9.cinput("Iveskite dienu intervala: ", )
     pr, end = intervalas[0], intervalas[1]  # get first day and last day of interval
     prd = pr // 7  # calculate int(floor) week count
     sav_d = prd * 7  # this should then be the day, closest to pr, having the same week day as "st_d" (the entered week day)

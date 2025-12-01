@@ -1,5 +1,4 @@
 """
-Contains a lot of functions. The main one is probably cinput.
 Cinput usage:
 cinput(a="enter the text to be displayed before input", Force_Number_Input=False, Float_Force_Extension=False, Preferred_Value_Amount=0, Force_Preferred_Value_Amount=False, DEBUG=False, LTSEFC="", BOLTS=False, RFoBOLTL=0, PEI3o1="", PMP=0.1)
 Force_Number_Input essentially blocks all non-number input
@@ -22,84 +21,16 @@ list_of_all_letters = [chr(i) for i in range(32, 33)] + [chr(46)] + [chr(i) for 
 numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
 
 
-def scroll(text, color='0F', speed=0.001, SINGLE_LINE_MODE=False):
-    import time
-    import os
-    os.system(f'color {color}')
-
-    x = ""
-    start = time.time()
-    for i in range(0, len(text)):
-        for a in range(0, len(list_of_all_letters)):
-            if SINGLE_LINE_MODE:
-                print(f"\r{x + list_of_all_letters[a]}", end="")
-            else:
-                print(x + list_of_all_letters[a])
-            if text[i] == list_of_all_letters[a]:
-                break
-            time.sleep(speed)
-        x += text[i]
-        if text == x:
-            break
-    print(x)
-
-
-def tetr(x, n=2, r=2):
-    # basicly tetration function, Tetration is repeated exponentiation.
-    # n -- the power, r -- the number of times to repeat exponentiation
-    if n == 0:
-        return 1
-    elif n == 1:
-        return x
-    else:
-        for i in range(r):
-            x **= n
-
-
-def printif(expr, msg=""):
-    if expr:
-        print(msg)
-
-
-def input_list(prompt="", separator=","):
-    return input(prompt).split(separator)
-
-
-def random_text(length=10):
-    import random
-    text = ""
-    for i in range(length):
-        text += list_of_all_letters[int(random.uniform(0, len(list_of_all_letters)))]
-    return text
-
-
-def random_color():
-    import random
-    hex_chars = "0123456789ABCDEF"
-    color = ""
-    for i in range(2):
-        color += hex_chars[int(random.uniform(0, len(hex_chars)))]
-    return color
-
-
-def random_num_list(length=5, min_val=0, max_val=100):
-    import random
-    num_list = []
-    for i in range(length):
-        num_list.append(int(random.uniform(min_val, max_val)))
-    return num_list
-
-
 def cinput(a="Input: ", Force_Number_Input=False, Float_Force_Extension=False, Preferred_Value_Amount=0,
            Force_Preferred_Value_Amount=False, DEBUG=False, LTSEFC="", BOLTS=False, RFoBOLTL=0, PEI3o1="",
-           PMP=0.1):  # if Preferred Value Amount is 0, then it will essentially be disabled.
+           PMP=0.2):  # if Preferred Value Amount is 0, then it will essentially be disabled.
     if Float_Force_Extension and not Force_Number_Input:
         Float_Force_Extension = False
 
     if Preferred_Value_Amount == 0 and Force_Preferred_Value_Amount:
         Force_Preferred_Value_Amount = False
 
-    if RFoBOLTL != 1 or RFoBOLTL != 3:
+    if RFoBOLTL not in (1, 3):
         PEI3o1 = ""
 
     list_of_all_letters__type_ns = list_of_all_letters
@@ -198,6 +129,8 @@ def cinput(a="Input: ", Force_Number_Input=False, Float_Force_Extension=False, P
                         print(PEI3o1)
                     elif RFoBOLTL == 0:
                         print("List is too long!")
+                    else:
+                        print("List is too long!")
                     if RFoBOLTL == 2 or RFoBOLTL == 3:
                         continue
 
@@ -234,23 +167,3 @@ def cinput(a="Input: ", Force_Number_Input=False, Float_Force_Extension=False, P
         return it_int
     else:
         return digits_collected
-
-
-def lmax(a=None):
-    if a is None:
-        a = []
-    kb = 0
-    didzc = 0
-    ct = 1
-    for i in a:
-        kb += float(i)
-        if float(i) >= didzc:
-            didzc = float(i)
-        ct += 1
-    return didzc
-
-
-def sci_notation(x, acc):
-    exp = len(str(x)) - 1
-    base = int(str(x)[acc])
-    return f"{base}e{exp}"
