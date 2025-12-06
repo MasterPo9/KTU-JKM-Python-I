@@ -9,8 +9,9 @@
       <sourceFolder url="file://$MODULE_DIR$/5-pamoka" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/6-pamoka" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/things" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/7-pamoka" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.11" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.13" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TemplatesService">
