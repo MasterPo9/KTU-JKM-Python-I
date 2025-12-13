@@ -1,6 +1,6 @@
 """
 Uses matplotlib to easily draw a plot
-\use update mode
+/use update mode
 """
 
 import matplotlib.pyplot as plt

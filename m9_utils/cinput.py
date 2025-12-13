@@ -1,6 +1,6 @@
 """
 Cinput usage:
-cinput(a="enter the text to be displayed before input", Force_Number_Input=False, Float_Force_Extension=False, Preferred_Value_Amount=0, Force_Preferred_Value_Amount=False, DEBUG=False, LTSEFC="", BOLTS=False, RFoBOLTL=0, PEI3o1="", PMP=0.1, VIR=range(1, 11), BOVIRV = False, RNPL = False)
+cinput(a="enter the text to be displayed before input", Force_Number_Input=False, Float_Force_Extension=False, Preferred_Value_Amount=0, Force_Preferred_Value_Amount=False, DEBUG=False, LTSEFC="", BOLTS=False, RFoBOLTL=0, PEI3o1="", PMP=0.1, VIR=range(1, 11), BOVIRV = False, RNPL = False, BOVIRF="")
 Force_Number_Input essentially blocks all non-number input
 Float_Force_Extension only works when Force_Number_Input is True, enabling "." to be used, to make floats
 Preferred_Value_Amount allows a preferred Value amount, from which, if the list is +-{10% of the Preferred Value Amount Variable} larger, or smaller (by length), it will be blocked; if 0 then it won't be enabled
@@ -16,18 +16,19 @@ PEI3o1 means "Previous Extension If 3 or 1". Allows setting of custom feedback i
 PMP means "Plus Minus Percent". 0.1 is 10%.
 VIR means "Value Input Range". If empty (None), this feature will be disabled. Use by using range(a, b).
 BOVIRV means "Block On Value Input Range Violation". False will just delete single values not in range. True will block the entire output by restarting the input process.
-RNPL means "Return Not Processed List". This returns a list before range filtering. The return output will be very diffrent when using this, as it will output 2 lists,
+RNPL means "Return Not Processed List". This returns a list before range filtering. The return output will be very different when using this, as it will output 2 lists,
 the first being the formatted list and second being the Not Processed list.
+BOVIRF means "Block On Value Input Range Violation Feedback"
 """
 
 list_of_all_letters = [chr(i) for i in range(32, 33)] + [chr(46)] + [chr(i) for i in range(65, 91)] + [chr(i) for i in
                                                                                                        range(97, 123)]
-numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-"]
 
 
 def cinput(a="Input: ", Force_Number_Input=False, Float_Force_Extension=False, Preferred_Value_Amount=0,
            Force_Preferred_Value_Amount=False, DEBUG=False, LTSEFC="", BOLTS=False, RFoBOLTL=0, PEI3o1="",
-           PMP=0.2, VIR=None, BOVIRV=False, RNPL=False):  # if Preferred Value Amount is 0, then it will essentially be disabled.
+           PMP=0.2, VIR=None, BOVIRV=False, RNPL=False, BOVIRF=""):  # if Preferred Value Amount is 0, then it will essentially be disabled.
     if Float_Force_Extension and not Force_Number_Input:
         Float_Force_Extension = False
 
@@ -49,6 +50,7 @@ def cinput(a="Input: ", Force_Number_Input=False, Float_Force_Extension=False, P
 
     FLOATMODE = False
     INTMODE = False
+    WAITFORNUM = False
 
     INTMODE_PERM_FALSE = False
     if DEBUG: print("Debug Enabled!")
@@ -65,6 +67,15 @@ def cinput(a="Input: ", Force_Number_Input=False, Float_Force_Extension=False, P
 
         for i in it_paz:
             if i in numbers:
+                if i == "-":
+                    MODE2 = MODE1
+                    MODE1 = MODE
+                    MODE = "WAIT"
+                    WAITFORNUM = True
+                    continue
+                if WAITFORNUM and i != "-":
+                    digits_rletter+="-"
+                    WAITFORNUM = False
                 INTMODE = True
                 MODE2 = MODE1
                 MODE1 = MODE
@@ -172,14 +183,18 @@ def cinput(a="Input: ", Force_Number_Input=False, Float_Force_Extension=False, P
         if VIR:
             for i in digits_collected:
                 if int(i) not in VIR:
+                    if BOVIRF: print(BOVIRF)
+                    else: print("Found values out of range!")
                     if not BOVIRV:
                         digits_collected.remove(i)
                         if DEBUG: print(f"Found invalid digit, out of provided range ({VIR}): {i}")
                     else:
                         TRIGGER_REINPUT = True
+                        if DEBUG: print(f"Triggering reinput because found digits out of provided range ({VIR}): {i}")
                         break
 
         if TRIGGER_REINPUT:
+            TRIGGER_REINPUT = False
             continue
 
         break

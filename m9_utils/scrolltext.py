@@ -203,12 +203,12 @@ def cinput(a="Input: ", Force_Number_Input=False, Float_Force_Extension=False, P
         ct += 1
         if i == "":
             cte += 1
-            if DEBUG: print(f"Found empty value in list (#l-{ct}\#e-{cte})")
+            if DEBUG: print(f"Found empty value in list (#l-{ct}/#e-{cte})")
             continue
         else:
             rem_empt_res.append(i)
             ctne += 1
-            if DEBUG: print(f"Found not empty value in list (#l-{ct}\#ne-{ctne})")
+            if DEBUG: print(f"Found not empty value in list (#l-{ct}/#ne-{ctne})")
     if not INTMODE_PERM_FALSE:
         it_int = []
         for i in digits_collected:
