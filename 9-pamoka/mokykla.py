@@ -35,13 +35,11 @@ for i in mokykla:
     if one_string_list[0] == vardas:
         pazymiai.append(one_string_list[1])
         print(one_string_list[1])
-    if vardas not in one_string_list:
-        neradimu_kiekis += 1
-    if neradimu_kiekis == len(mokykla):
-        print(f"Mokinys {vardas} mokykloje nerastas")
-        exit(404)
+if neradimu_kiekis == len(pazymiai):
+    print(f"Mokinys {vardas} mokykloje nerastas")
+    exit(404)
 
-print(f"Is viso: {len(pazymiai)}")
+else: print(f"Is viso: {len(pazymiai)}")
 
 # infostr = {}
 #
