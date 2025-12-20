@@ -1,4 +1,5 @@
 import math
+from os import system
 import sys
 import time
 from threading import Thread
@@ -8,7 +9,7 @@ import gmpy2
 import m9_utils.scrolltext as st
 
 stopped = False
-
+disabled = False
 
 def sometimer(x=str(), type=1):
     global stopped
@@ -121,6 +122,11 @@ for i in range(0, times):
         end = time.time()
         took = end - start
         print(f"time for iter #{i}: {took:.6f}.")
+        if took > 1 and not disabled:
+            question = input(f"Do you want to continue? The times will exponentially increase from here. The next iteration is expected to take {(took*2):.0f}s. [y/n] ")
+            if question == "n":
+                exit(0)
+            disabled = True
         if once == "Do That!":
             start2 = time.time()
             print(
