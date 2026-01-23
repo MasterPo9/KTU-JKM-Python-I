@@ -1,9 +1,9 @@
 # doing backwards lol
 
-import m9_utils as utils
-from m9_utils.trying_ani import gambling, LIGHT_WHITE, LIGHT_CYAN, CYAN, BLUE, LIGHT_GREEN, GREEN, LIGHT_PURPLE, \
-    PURPLEC, BLINK, RED, REDBG, BOLD, CURLYUNDERLINE, RESET, FAINT
 import random
+
+import m9_utils as utils
+from m9_utils.trying_ani import BLUE, LIGHT_GREEN, GREEN, PURPLEC, BLINK, RED, REDBG, RESET
 
 
 def v20(rng=False):
@@ -17,7 +17,7 @@ def v20(rng=False):
     sumaisytas = "".join(raides)
     print(f"Sumaisytas zodis: {sumaisytas}")
     print(
-        f"{f"\n{LIGHT_GREEN}Teisingas spejimas!{RESET}" if pasleptas_zodis == str(input("\nJusu spejimas: ")) else f"\n{RED}Neteisingas Spejimas!{RESET}"}")
+        f"{f'{LIGHT_GREEN}Teisingas spejimas!{RESET}' if pasleptas_zodis == str(input('Jusu spejimas: ')) else f'{RED}Neteisingas Spejimas!{RESET}'}")
 
 
 def v19():
@@ -97,4 +97,6 @@ def v12():
         if spejimas < number:
             print(f"{PURPLEC}Per mazai!{RESET}")
     if not di: print(f"{REDBG}{BLINK}Neatspejote!{RESET}")
-v12()
+
+
+v15()

@@ -208,7 +208,7 @@ def gambling(both=None, weights=None):
     return chsn0
 
 
-def rainbow(text="Hello World!", speed=0.01, step=0.0025, mode=2):
+def rainbow(text="Hello World!", speed=0.03, step=0.01, mode=2):
     import time
     import colorsys
     h = 0.0
@@ -247,10 +247,12 @@ def rainbow(text="Hello World!", speed=0.01, step=0.0025, mode=2):
         time.sleep(speed)
 
 
-def generate_gradient(text: str = "Hello World!", hcolor1: float = 0.65, hcolor2: float = 0.775, mode_override=0):
+def generate_gradient(text: str = "Hello World!", hcolor1: float = 0.65, hcolor2: float = 0.775, mode_override=0,
+                      output=True):
     # I will only support hue as i don't care about those other ones (i won't need them anyway)
     # oh yeah then i don't need to enter other values, only hue then.
 
+    output_out = ""
     diff = hcolor2 - hcolor1
     bdiff = hcolor1 + (1 - hcolor2)
     step_size = abs(diff) / len(text)
@@ -266,7 +268,10 @@ def generate_gradient(text: str = "Hello World!", hcolor1: float = 0.65, hcolor2
                 h = 0.0
             elif h < 0.0:
                 h = 1.0 - abs(h)
-            print(f"\033[38;2;{r};{g};{b}m{i}\033[0m", end="", flush=True)
+            if output:
+                print(f"\033[38;2;{r};{g};{b}m{i}\033[0m", end="", flush=True)
+            else:
+                output_out += f"\033[38;2;{r};{g};{b}m{i}\033[0m"
     elif not mode_override == 1 or mode_override == 2:
         for i in text:
             r, g, b = colorsys.hsv_to_rgb(h, 1, 1)
@@ -277,9 +282,15 @@ def generate_gradient(text: str = "Hello World!", hcolor1: float = 0.65, hcolor2
                 h = 0.0 + abs(h - 1)
             elif h < 0.0:
                 h = 1.0 - abs(h)
-            print(f"\033[38;2;{r};{g};{b}m{i}\033[0m", end="", flush=True)
+            if output:
+                print(f"\033[38;2;{r};{g};{b}m{i}\033[0m", end="", flush=True)
+            else:
+                output_out += f"\033[38;2;{r};{g};{b}m{i}\033[0m"
+
+    if not output:
+        return output_out
 
 
-generate_gradient()
+generate_gradient(output=False)
 # SIMPLE("+++ initializing insanity engine +++", 0.02, "rtl")
 # print(f'\nyou will get {gambling([f"{LIGHT_WHITE}{FAINT}zero{RESET}", f"{LIGHT_CYAN}one{RESET}", f"{CYAN}two{RESET}", f"{BLUE}three{RESET}", f"{LIGHT_GREEN}four{RESET}", f"{GREEN}five{RESET}", f"{LIGHT_PURPLE}six{RESET}", f"{PURPLEC}{BOLD}seven{RESET}", f"{BLINK}{RED}{REDBG}{BOLD}{CURLYUNDERLINE}ten{RESET}"], [10, 5, 2.5, 1.25, 0.625, 0.3125, 0.15625, 0.078125, 0.0390625])} cents')
