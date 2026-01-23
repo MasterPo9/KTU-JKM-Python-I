@@ -23,6 +23,7 @@ Pavyzdys:
 """
 
 import random
+
 import m9_utils as utils
 
 # Kompiuterio sugalvotas skaičius tarp 0 ir 10
@@ -45,5 +46,5 @@ while inp != skaicius:
             print(f"{utils.RED}Deja, skaičius yra mažesnis.{utils.RESET}")
 
 taskai = (100//bandymai) - baudos
-print(f"{utils.GREEN}Atspėjai per {bandymai} kartus!{utils.RESET}\nTavo taškai: {utils.REDBG+utils.BLINK if taskai < -20 else "" + utils.RED if -20<=taskai<0 else "" + utils.LIGHT_RED if 0<taskai < 15 else ""+utils.YELLOW if 15 <= taskai <= 40 else ""+utils.GREEN if taskai > 40 else ""}{taskai}")
-
+print(
+    f"{utils.GREEN}Atspėjai per {bandymai} kartus!{utils.RESET}\nTavo taškai: {utils.REDBG + utils.BLINK if taskai < -20 else '' + utils.RED if -20 <= taskai < 0 else '' + utils.LIGHT_RED if 0 < taskai < 15 else '' + utils.YELLOW if 15 <= taskai <= 40 else '' + utils.GREEN if taskai > 40 else ''}{taskai}")

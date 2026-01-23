@@ -1,7 +1,7 @@
 # ts will be implemented to m9_utils in some or other way
 # SIMPLE("+++ initializing insanity engine +++", 0.02, "rtl")
 # print(f'\nyou will get {gambling([f"{LIGHT_WHITE}{FAINT}zero{RESET}", f"{LIGHT_CYAN}one{RESET}", f"{CYAN}two{RESET}", f"{BLUE}three{RESET}", f"{LIGHT_GREEN}four{RESET}", f"{GREEN}five{RESET}", f"{LIGHT_PURPLE}six{RESET}", f"{PURPLEC}{BOLD}seven{RESET}", f"{BLINK}{RED}{REDBG}{BOLD}{CURLYUNDERLINE}ten{RESET}"], [10, 5, 2.5, 1.25, 0.625, 0.3125, 0.15625, 0.078125, 0.0390625])} cents')
-
+import colorsys
 import time
 from threading import Thread
 
@@ -207,5 +207,79 @@ def gambling(both=None, weights=None):
 
     return chsn0
 
+
+def rainbow(text="Hello World!", speed=0.01, step=0.0025, mode=2):
+    import time
+    import colorsys
+    h = 0.0
+    sh = 0.0
+    while True:
+        if mode == 1:
+            r, g, b = colorsys.hsv_to_rgb(h, 1, 1)
+            r, g, b = int(r * 255), int(g * 255), int(b * 255)
+
+            print(f"\r\033[38;2;{r};{g};{b}m{text}\033[0m", end="", flush=True)
+
+            h += step
+            if h >= 1.0:
+                h = 0.0
+
+        elif mode == 2:
+            print("\r", end="", flush=True)
+            ct = 0
+            for i in text:
+                if ct == 0:
+                    if sh: h = sh + step
+                    sh = h
+                    if sh >= 1.0:
+                        sh -= 1.0
+
+                r, g, b = colorsys.hsv_to_rgb(h, 1, 1)
+                r, g, b = int(r * 255), int(g * 255), int(b * 255)
+
+                print(f"\033[38;2;{r};{g};{b}m{i}\033[0m", end="", flush=True)
+                # remove all text between "#" to enable debug#print(f"DBG: i:{i};sh:{sh};h:{h};ct:{ct};r/g/b:{r}/{g}/{b}", end="", flush=True)
+
+                h += step
+                if h >= 1.0:
+                    h = 0.0
+                ct += 1
+        time.sleep(speed)
+
+
+def generate_gradient(text: str = "Hello World!", hcolor1: float = 0.65, hcolor2: float = 0.775, mode_override=0):
+    # I will only support hue as i don't care about those other ones (i won't need them anyway)
+    # oh yeah then i don't need to enter other values, only hue then.
+
+    diff = hcolor2 - hcolor1
+    bdiff = hcolor1 + (1 - hcolor2)
+    step_size = abs(diff) / len(text)
+    b_step_size = abs(bdiff) / len(text)
+    h = hcolor1
+    if bdiff < diff and not mode_override == 2 or mode_override == 1:  # do backwards gradient(reaching 0.0 and overlapping to 1, then reaching whatever hcolor2 is) if it is closer
+        for i in text:
+            r, g, b = colorsys.hsv_to_rgb(h, 1, 1)
+            r, g, b = int(r * 255), int(g * 255), int(b * 255)
+            ph = h
+            h -= b_step_size
+            if h > 1.0:
+                h = 0.0
+            elif h < 0.0:
+                h = 1.0 - abs(h)
+            print(f"\033[38;2;{r};{g};{b}m{i}\033[0m", end="", flush=True)
+    elif not mode_override == 1 or mode_override == 2:
+        for i in text:
+            r, g, b = colorsys.hsv_to_rgb(h, 1, 1)
+            r, g, b = int(r * 255), int(g * 255), int(b * 255)
+            ph = h
+            h += step_size
+            if h > 1.0:
+                h = 0.0 + abs(h - 1)
+            elif h < 0.0:
+                h = 1.0 - abs(h)
+            print(f"\033[38;2;{r};{g};{b}m{i}\033[0m", end="", flush=True)
+
+
+generate_gradient()
 # SIMPLE("+++ initializing insanity engine +++", 0.02, "rtl")
 # print(f'\nyou will get {gambling([f"{LIGHT_WHITE}{FAINT}zero{RESET}", f"{LIGHT_CYAN}one{RESET}", f"{CYAN}two{RESET}", f"{BLUE}three{RESET}", f"{LIGHT_GREEN}four{RESET}", f"{GREEN}five{RESET}", f"{LIGHT_PURPLE}six{RESET}", f"{PURPLEC}{BOLD}seven{RESET}", f"{BLINK}{RED}{REDBG}{BOLD}{CURLYUNDERLINE}ten{RESET}"], [10, 5, 2.5, 1.25, 0.625, 0.3125, 0.15625, 0.078125, 0.0390625])} cents')

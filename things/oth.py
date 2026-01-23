@@ -1,11 +1,11 @@
 import math
-from os import system
 import sys
 import time
 from threading import Thread
 
 import gmpy2
 
+import m9_utils as utils
 import m9_utils.scrolltext as st
 
 stopped = False
@@ -99,7 +99,7 @@ def WOO_LETS_MAKE_THIS_WORK(x=int(), status=False,
 
     stopped = True
 
-    print(f"ANSWER: {xsum}\nTook {time.time() - eval_start:.2f}s to evaluate.")
+    utils.generate_gradient(text=f"ANSWER: {xsum}\nTook {time.time() - eval_start:.2f}s to evaluate.")
 
 
 sys.set_int_max_str_digits(99999999)
