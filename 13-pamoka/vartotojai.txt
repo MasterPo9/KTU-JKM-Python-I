@@ -1,0 +1,4 @@
+azuolas,25
+saule,19
+tomas,17
+lukas,12
