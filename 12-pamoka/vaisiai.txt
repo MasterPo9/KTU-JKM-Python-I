@@ -1,0 +1,3 @@
+bananas;6.50
+obuolys;4.95
+apelsinas;8.0

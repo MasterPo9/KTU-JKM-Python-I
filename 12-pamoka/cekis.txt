@@ -1,0 +1,3 @@
+pienas;1.20;2
+duona;0.80;1
+sultys;1.50;3

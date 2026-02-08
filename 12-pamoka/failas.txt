@@ -1,0 +1,3 @@
+labas_a (1)
+labas_b (2)
+labas_c (3)
