@@ -208,7 +208,7 @@ def gambling(both=None, weights=None):
     return chsn0
 
 
-def rainbow(text="Hello World!", speed=0.03, step=0.01, mode=2):
+def rainbow(text="Hello World!", speed=0.05, step=0.01, mode=2):
     import time
     import colorsys
     h = 0.0
@@ -227,9 +227,10 @@ def rainbow(text="Hello World!", speed=0.03, step=0.01, mode=2):
         elif mode == 2:
             print("\r", end="", flush=True)
             ct = 0
+            line = ""
             for i in text:
                 if ct == 0:
-                    if sh: h = sh + step
+                    h = sh + step
                     sh = h
                     if sh >= 1.0:
                         sh -= 1.0
@@ -237,35 +238,43 @@ def rainbow(text="Hello World!", speed=0.03, step=0.01, mode=2):
                 r, g, b = colorsys.hsv_to_rgb(h, 1, 1)
                 r, g, b = int(r * 255), int(g * 255), int(b * 255)
 
-                print(f"\033[38;2;{r};{g};{b}m{i}\033[0m", end="", flush=True)
-                # remove all text between "#" to enable debug#print(f"DBG: i:{i};sh:{sh};h:{h};ct:{ct};r/g/b:{r}/{g}/{b}", end="", flush=True)
+                line += f"\033[38;2;{r};{g};{b}m{i}\033[0m"
+                # remove all text between "#" to enable debug#print(f"\rDBG: i:{i};sh:{sh};h:{h};ct:{ct};r/g/b:{r}/{g}/{b}", end="", flush=True)
 
                 h += step
                 if h >= 1.0:
-                    h = 0.0
+                    h -= 1
                 ct += 1
+            print(f"\r{line}", end="", flush=True)
         time.sleep(speed)
 
 
 def generate_gradient(text: str = "Hello World!", hcolor1: float = 0.65, hcolor2: float = 0.775, mode_override=0,
-                      output=True):
+                      output=True, reverse=False):
     # I will only support hue as i don't care about those other ones (i won't need them anyway)
     # oh yeah then i don't need to enter other values, only hue then.
 
     output_out = ""
     diff = hcolor2 - hcolor1
     bdiff = hcolor1 + (1 - hcolor2)
-    step_size = abs(diff) / len(text)
-    b_step_size = abs(bdiff) / len(text)
+    try:
+        step_size = abs(diff) / len(text)
+        b_step_size = abs(bdiff) / len(text)
+    except ZeroDivisionError:
+        step_size = 0
+        b_step_size = 0
     h = hcolor1
     if bdiff < diff and not mode_override == 2 or mode_override == 1:  # do backwards gradient(reaching 0.0 and overlapping to 1, then reaching whatever hcolor2 is) if it is closer
         for i in text:
             r, g, b = colorsys.hsv_to_rgb(h, 1, 1)
             r, g, b = int(r * 255), int(g * 255), int(b * 255)
             ph = h
-            h -= b_step_size
+            if hcolor1 < hcolor2 and not reverse:
+                h -= b_step_size
+            else:
+                h += b_step_size
             if h > 1.0:
-                h = 0.0
+                h = 0.0 + abs(h - 1)
             elif h < 0.0:
                 h = 1.0 - abs(h)
             if output:
@@ -277,20 +286,38 @@ def generate_gradient(text: str = "Hello World!", hcolor1: float = 0.65, hcolor2
             r, g, b = colorsys.hsv_to_rgb(h, 1, 1)
             r, g, b = int(r * 255), int(g * 255), int(b * 255)
             ph = h
-            h += step_size
+            if hcolor1 < hcolor2 and not reverse:
+                h += step_size
+            else:
+                h -= step_size
             if h > 1.0:
                 h = 0.0 + abs(h - 1)
             elif h < 0.0:
                 h = 1.0 - abs(h)
-            if output:
-                print(f"\033[38;2;{r};{g};{b}m{i}\033[0m", end="", flush=True)
-            else:
-                output_out += f"\033[38;2;{r};{g};{b}m{i}\033[0m"
+            output_out += f"\033[38;2;{r};{g};{b}m{i}\033[0m"
 
     if not output:
         return output_out
+    else:
+        print(output_out)
+        return None
 
 
-generate_gradient(output=False)
+def gradpeak(text: str = "Hello World!", pos: int = 8, hcolor1: float = 0.65, hcolor2: float = 0.775):
+    low_h, high_h = sorted([hcolor1, hcolor2])
+    p1, p2 = text[:pos], text[pos:]
+
+    res1 = generate_gradient(text=p1, hcolor1=low_h, hcolor2=high_h, mode_override=2, output=False)
+    res2 = generate_gradient(text=p2, hcolor1=high_h, hcolor2=low_h, mode_override=2, output=False, reverse=True)
+
+    return res1 + res2
+
+
+def test_56452(text: str = "Hello World!", hcolor1: float = 0.65, hcolor2: float = 0.775, speed: float = 0.05):
+    while True:
+        for i in range(len(text) + 1):
+            print(f"\r{gradpeak(text=text, pos=i, hcolor1=hcolor1, hcolor2=hcolor2)}", end="", flush=True)
+            time.sleep(speed)
+
 # SIMPLE("+++ initializing insanity engine +++", 0.02, "rtl")
 # print(f'\nyou will get {gambling([f"{LIGHT_WHITE}{FAINT}zero{RESET}", f"{LIGHT_CYAN}one{RESET}", f"{CYAN}two{RESET}", f"{BLUE}three{RESET}", f"{LIGHT_GREEN}four{RESET}", f"{GREEN}five{RESET}", f"{LIGHT_PURPLE}six{RESET}", f"{PURPLEC}{BOLD}seven{RESET}", f"{BLINK}{RED}{REDBG}{BOLD}{CURLYUNDERLINE}ten{RESET}"], [10, 5, 2.5, 1.25, 0.625, 0.3125, 0.15625, 0.078125, 0.0390625])} cents')

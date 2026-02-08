@@ -26,9 +26,51 @@ list_of_all_letters = [chr(i) for i in range(32, 33)] + [chr(46)] + [chr(i) for 
 numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-"]
 
 
+def parse(code=""):
+    code = code.strip().split(";")
+
+    cfm = []
+    curr = ""
+    split_by = ""
+    for i in code:
+        cfm.append(i.split(">"))
+    ct = 0
+    for i in cfm:
+        for j in i:
+            if j == "use":
+                curr = j
+                continue
+            elif curr == "use":
+                curr = ""
+                if j not in ["aut", "cus"]:
+                    raise Exception("Invalid use, expected 'aut' or 'cus'")
+                else:
+                    use = j
+            elif j == "set":
+                curr = j
+                continue
+            elif curr == "set":
+                if j == "split_by":
+                    curr = "set_sb"
+                    continue
+                continue
+            elif curr == "set_sb":
+                curr = ""
+                split_by = str(j)
+            else:
+                print(f"No valid use for \"{i}\" ({j})")
+    try:
+        use
+    except NameError:
+        raise NameError("use is not defined.")
+    return use, split_by
+
+
+
 def cinput(a="Input: ", Force_Number_Input=False, Float_Force_Extension=False, Preferred_Value_Amount=0,
            Force_Preferred_Value_Amount=False, DEBUG=False, LTSEFC="", BOLTS=False, RFoBOLTL=0, PEI3o1="",
-           PMP=0.2, VIR=None, BOVIRV=False, RNPL=False, BOVIRF=""):  # if Preferred Value Amount is 0, then it will essentially be disabled.
+           PMP=0.2, VIR=None, BOVIRV=False, RNPL=False, BOVIRF="",
+           cfunc=""):  # if Preferred Value Amount is 0, then it will essentially be disabled.
     if Float_Force_Extension and not Force_Number_Input:
         Float_Force_Extension = False
 
@@ -38,6 +80,8 @@ def cinput(a="Input: ", Force_Number_Input=False, Float_Force_Extension=False, P
     if RFoBOLTL not in (1, 3):
         PEI3o1 = ""
 
+    use = "aut"
+    split_by = ""
     TRIGGER_REINPUT=False
 
     list_of_all_letters__type_ns = list_of_all_letters
@@ -53,6 +97,8 @@ def cinput(a="Input: ", Force_Number_Input=False, Float_Force_Extension=False, P
     WAITFORNUM = False
 
     INTMODE_PERM_FALSE = False
+    if cfunc:
+        use, split_by = parse(cfunc)
     if DEBUG: print("Debug Enabled!")
 
     while True:
@@ -65,68 +111,74 @@ def cinput(a="Input: ", Force_Number_Input=False, Float_Force_Extension=False, P
 
         MODE = None
 
-        for i in it_paz:
-            if i in numbers:
-                if i == "-":
-                    MODE2 = MODE1
-                    MODE1 = MODE
-                    MODE = "WAIT"
-                    WAITFORNUM = True
-                    continue
-                if WAITFORNUM and i != "-":
-                    digits_rletter+="-"
-                    WAITFORNUM = False
-                INTMODE = True
-                MODE2 = MODE1
-                MODE1 = MODE
-                MODE = "NUM"
-                digits_nl_lenght += 1
-                digits_rletter += str(i)
-                if DEBUG: print(f"\r\x1b[K{digits_rletter};{MODE}←{MODE1}←{MODE2}; {digits_nl_lenght}")
-            elif i in list_of_all_letters__type_ns:
-                if Force_Number_Input and not Float_Force_Extension: continue
-                INTMODE = False
-                MODE2 = MODE1
-                MODE1 = MODE
-                MODE = "LTR"
-                if i == "." and MODE1 == "NUM":
+        if use == "cus":
+            digits_collected = it_paz.split(split_by)
+            INTMODE_PERM_FALSE = True
+        else:
+
+            for i in it_paz:
+                if i in numbers:
+                    if i == "-":
+                        MODE2 = MODE1
+                        MODE1 = MODE
+                        MODE = "WAIT"
+                        WAITFORNUM = True
+                        continue
+                    if WAITFORNUM and i != "-":
+                        digits_rletter += "-"
+                        WAITFORNUM = False
+                    INTMODE = True
                     MODE2 = MODE1
                     MODE1 = MODE
                     MODE = "NUM"
                     digits_nl_lenght += 1
                     digits_rletter += str(i)
-                    INTMODE = True
-                    FLOATMODE = True
-                    if Force_Number_Input and Float_Force_Extension: continue
-                elif (MODE1 == "SEP" or MODE2 == "SEP") and i == ".":
-                    MODE = "SEP"
-                    continue
+                    if DEBUG: print(f"\r\x1b[K{digits_rletter};{MODE}←{MODE1}←{MODE2}; {digits_nl_lenght}")
+                elif i in list_of_all_letters__type_ns:
+                    if Force_Number_Input and not Float_Force_Extension: continue
+                    INTMODE = False
+                    MODE2 = MODE1
+                    MODE1 = MODE
+                    MODE = "LTR"
+                    if i == "." and MODE1 == "NUM":
+                        MODE2 = MODE1
+                        MODE1 = MODE
+                        MODE = "NUM"
+                        digits_nl_lenght += 1
+                        digits_rletter += str(i)
+                        INTMODE = True
+                        FLOATMODE = True
+                        if Force_Number_Input and Float_Force_Extension: continue
+                    elif (MODE1 == "SEP" or MODE2 == "SEP") and i == ".":
+                        MODE = "SEP"
+                        continue
+                    else:
+                        if Force_Number_Input and Float_Force_Extension: continue
+                        INTMODE_PERM_FALSE = True
+                        if DEBUG: print("Enabled Permanent INTMODE")
+                        digits_nl_lenght += 1
+                        digits_rletter += str(i)
+
+                    if DEBUG: print(f"\r\x1b[K{digits_rletter};{MODE}←{MODE1}←{MODE2}; {digits_nl_lenght}")
                 else:
-                    if Force_Number_Input and Float_Force_Extension: continue
-                    INTMODE_PERM_FALSE = True
-                    if DEBUG: print("Enabled Permanent INTMODE")
-                    digits_nl_lenght += 1
-                    digits_rletter += str(i)
+                    if MODE != "SEP":
+                        digits_nl_lenght = 1
+                        digits_collected.append(digits_rletter)
+                        if DEBUG: print(
+                            f"Appended before changing of MODE(prev {MODE}←{MODE1}←{MODE2}) to SEP({digits_rletter})")
 
-                if DEBUG: print(f"\r\x1b[K{digits_rletter};{MODE}←{MODE1}←{MODE2}; {digits_nl_lenght}")
-            else:
-                if MODE != "SEP":
-                    digits_nl_lenght = 1
-                    digits_collected.append(digits_rletter)
-                    if DEBUG: print(
-                        f"Appended before changing of MODE(prev {MODE}←{MODE1}←{MODE2}) to SEP({digits_rletter})")
+                    MODE2 = MODE1
+                    MODE1 = MODE
+                    MODE = "SEP"
 
-                MODE2 = MODE1
-                MODE1 = MODE
-                MODE = "SEP"
+                    digits_rletter = ""
+                    if DEBUG: print(f"\r\x1b[K{digits_rletter};{MODE}←{MODE1}←{MODE2}; {digits_nl_lenght}")
 
-                digits_rletter = ""
-                if DEBUG: print(f"\r\x1b[K{digits_rletter};{MODE}←{MODE1}←{MODE2}; {digits_nl_lenght}")
+            if digits_rletter:
+                digits_collected.append(digits_rletter)
+            if RNPL: og_digits_collected = digits_collected
+            if DEBUG: print(f"Gotten result: {digits_collected}")
 
-        if digits_rletter:
-            digits_collected.append(digits_rletter)
-        if RNPL: og_digits_collected = digits_collected
-        if DEBUG: print(f"Gotten result: {digits_collected}")
 
         rem_empt_res = []
         ct = 0
@@ -183,8 +235,10 @@ def cinput(a="Input: ", Force_Number_Input=False, Float_Force_Extension=False, P
         if VIR:
             for i in digits_collected:
                 if int(i) not in VIR:
-                    if BOVIRF: print(BOVIRF)
-                    else: print("Found values out of range!")
+                    if BOVIRF:
+                        print(BOVIRF)
+                    else:
+                        print("Found values out of range!")
                     if not BOVIRV:
                         digits_collected.remove(i)
                         if DEBUG: print(f"Found invalid digit, out of provided range ({VIR}): {i}")
