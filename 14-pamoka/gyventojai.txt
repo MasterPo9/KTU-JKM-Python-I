@@ -1,0 +1,3 @@
+Kaunas 300000
+Vilnius 600000
+Klaipeda 150000

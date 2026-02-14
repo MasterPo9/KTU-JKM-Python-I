@@ -1,0 +1,9 @@
+Ruta;Lietuva;50;5.9
+Pergale;Raitelis;25;18.90
+Pergale;Vilnius;34;17.63
+Ruta;Vilnius;20;11.9
+Pergale;Aguona;60;7.74
+Ruta;Ciurlionis;30; 28.55
+Ruta;Draze;60;4.36
+Ruta;Ruta;56;12.82
+Pergale;Kauke;80;6.4

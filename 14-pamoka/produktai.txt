@@ -1,0 +1,5 @@
+Duona 2
+Pienas 3
+Mesa 8
+Suris 7
+Vanduo 1

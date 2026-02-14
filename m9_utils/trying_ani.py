@@ -319,5 +319,6 @@ def test_56452(text: str = "Hello World!", hcolor1: float = 0.65, hcolor2: float
             print(f"\r{gradpeak(text=text, pos=i, hcolor1=hcolor1, hcolor2=hcolor2)}", end="", flush=True)
             time.sleep(speed)
 
+rainbow()
 # SIMPLE("+++ initializing insanity engine +++", 0.02, "rtl")
 # print(f'\nyou will get {gambling([f"{LIGHT_WHITE}{FAINT}zero{RESET}", f"{LIGHT_CYAN}one{RESET}", f"{CYAN}two{RESET}", f"{BLUE}three{RESET}", f"{LIGHT_GREEN}four{RESET}", f"{GREEN}five{RESET}", f"{LIGHT_PURPLE}six{RESET}", f"{PURPLEC}{BOLD}seven{RESET}", f"{BLINK}{RED}{REDBG}{BOLD}{CURLYUNDERLINE}ten{RESET}"], [10, 5, 2.5, 1.25, 0.625, 0.3125, 0.15625, 0.078125, 0.0390625])} cents')

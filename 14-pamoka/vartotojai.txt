@@ -1,0 +1,3 @@
+Jonas 8 9 10 7
+Ieva 10 9 10 10
+Azuolas 6 7 8 6

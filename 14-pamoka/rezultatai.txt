@@ -1,0 +1,7 @@
+Jonas - vidurkis: 8.50
+Ieva - vidurkis: 9.75
+Azuolas - vidurkis: 6.75
+
+Geriausias mokinys: Ieva
+Silpniausias mokinys: Azuolas
+Klases vidurkis: 8.33
