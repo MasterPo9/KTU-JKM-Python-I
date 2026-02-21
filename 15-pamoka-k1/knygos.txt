@@ -1,0 +1,7 @@
+Meno pasaulis;Jonas Petrauskas;2015;25.5
+Programuokime kartu;Asta Vaitkunaite;2021;40.0
+Python pagrindai;Jonas Petrauskas;2019;35.0
+Mazoji kulinarija;Ruta Valaviciute;2018;22.5
+Keliones po Europa;Andrius Zukauskas;2020;30.0
+Kurybinis mastymas;Asta Vaitkunaite;2017;28.0
+Istorijos pamokos;Jonas Petrauskas;2013;20.0
